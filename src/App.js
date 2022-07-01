@@ -12,6 +12,7 @@ function App() {
         <Balance />
         <IncomeExpenses />
         <TransactionList />
+        test
       </div>
     </div>
   );
