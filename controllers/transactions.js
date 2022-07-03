@@ -61,5 +61,27 @@ exports.addTransaction = async (req, res, next) => {
 // @access Public
 
 exports.deleteTransaction = async (req, res, next) => {
-  res.send('Delete transaction');
+  try {
+    const transaction = await Transactions.findById(req.params.id);
+
+    if (!transaction) {
+      return res.status(404).json({
+        success: false,
+        error: 'No transaction found',
+      });
+    }
+
+    await transaction.remove();
+
+    return res.status(200).json({
+      success: true,
+      data: {},
+    });
+  } catch (error) {
+    res.status(500);
+    return res.json({
+      success: false,
+      error: 'Server Error',
+    });
+  }
 };
